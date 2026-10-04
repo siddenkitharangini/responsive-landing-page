@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="theme-color"
+      content="#080d17"
+    />
+    <meta
+      name="description"
+      content="A futuristic Tic-Tac-Toe game. Challenge a friend or take on the computer."
+    />
+    <title>Tic-Tac-Toe — Classic Rules, New Energy</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="site-header">
+        <p class="eyebrow"><span aria-hidden="true">✦</span> Classic rules · new energy</p>
+        <h1>TIC-TAC-TOE</h1>
+        <p class="subtitle">Player X <span aria-hidden="true">vs</span> Player O</p>
+      </header>
+
+      <section class="mode-section" aria-label="Game mode">
+        <div class="mode-heading">
+          <div class="mode-picker">
+            <button
+              class="mode-dropdown-trigger"
+              id="mode-menu-button"
+              type="button"
+              aria-expanded="false"
+              aria-controls="mode-menu"
+            >
+              <span>Choose your mode</span>
+              <span class="chevron" aria-hidden="true">⌄</span>
+            </button>
+            <div class="mode-menu" id="mode-menu" role="menu" hidden>
+              <button type="button" role="menuitem" data-mode="two-player">
+                <span aria-hidden="true">👥</span> 2 Players
+              </button>
+              <button type="button" role="menuitem" data-mode="computer">
+                <span aria-hidden="true">🤖</span> Vs Computer
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="mode-tabs" role="group" aria-label="Select a game mode">
+          <button class="mode-tab is-selected" type="button" data-mode="two-player" aria-pressed="true">
+            <span aria-hidden="true">👥</span> 2 Players
+          </button>
+          <button class="mode-tab" type="button" data-mode="computer" aria-pressed="false">
+            <span aria-hidden="true">🤖</span> Vs Computer
+          </button>
+        </div>
+      </section>
+
+      <section class="scoreboard" aria-label="Scoreboard">
+        <article class="score-card score-x">
+          <p class="score-name">Player X</p>
+          <p class="score-value" id="score-x" aria-label="Player X wins">0</p>
+          <p class="score-caption">Wins</p>
+        </article>
+        <article class="score-card score-draw">
+          <p class="score-name">Draws</p>
+          <p class="score-value" id="score-draw" aria-label="Draws">0</p>
+          <p class="score-caption">Tied</p>
+        </article>
+        <article class="score-card score-o">
+          <p class="score-name">Player O</p>
+          <p class="score-value" id="score-o" aria-label="Player O wins">0</p>
+          <p class="score-caption">Wins</p>
+        </article>
+      </section>
+
+      <section class="game-status" aria-live="polite" aria-atomic="true">
+        <div class="status-mark" id="status-mark" aria-hidden="true">X</div>
+        <div class="status-copy">
+          <p class="status-title" id="status-title">Player X's turn</p>
+          <p class="status-description" id="status-description">Choose an open square to make your move.</p>
+        </div>
+        <span class="live-indicator" aria-hidden="true"></span>
+      </section>
+
+      <section class="game-layout" aria-label="Game">
+        <div class="board-wrap">
+          <div class="board" id="game-board" role="group" aria-label="Tic-Tac-Toe board">
+            <button class="cell" type="button" data-cell="0" aria-label="Row 1, column 1, empty"></button>
+            <button class="cell" type="button" data-cell="1" aria-label="Row 1, column 2, empty"></button>
+            <button class="cell" type="button" data-cell="2" aria-label="Row 1, column 3, empty"></button>
+            <button class="cell" type="button" data-cell="3" aria-label="Row 2, column 1, empty"></button>
+            <button class="cell" type="button" data-cell="4" aria-label="Row 2, column 2, empty"></button>
+            <button class="cell" type="button" data-cell="5" aria-label="Row 2, column 3, empty"></button>
+            <button class="cell" type="button" data-cell="6" aria-label="Row 3, column 1, empty"></button>
+            <button class="cell" type="button" data-cell="7" aria-label="Row 3, column 2, empty"></button>
+            <button class="cell" type="button" data-cell="8" aria-label="Row 3, column 3, empty"></button>
+            <svg
+              class="winning-line-overlay"
+              id="winning-line-overlay"
+              viewBox="0 0 1000 1000"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <line id="winning-line" pathLength="1" />
+            </svg>
+          </div>
+          <div class="board-footer">
+            <span><span class="legend-dot dot-x"></span> Player X</span>
+            <span class="board-divider" aria-hidden="true"></span>
+            <span><span class="legend-dot dot-o"></span> <span id="player-o-label">Player O</span></span>
+          </div>
+        </div>
+
+        <aside class="round-panel" aria-labelledby="round-control-title">
+          <div class="panel-heading">
+            <h2 id="round-control-title">Round control</h2>
+            <span class="round-state"><span class="round-state-dot"></span> In play</span>
+          </div>
+          <div class="current-player">
+            <p class="section-label">Current player</p>
+            <p class="current-symbol symbol-x" id="current-symbol">X</p>
+            <p class="current-name" id="current-name">Player X</p>
+          </div>
+          <div class="panel-divider"></div>
+          <div class="round-actions">
+            <button class="action-button new-game-button" id="new-game" type="button">
+              <span aria-hidden="true">↻</span> New game
+            </button>
+            <button class="action-button reset-button" id="reset-score" type="button">
+              Reset score
+            </button>
+          </div>
+          <p class="panel-hint">A fresh round starts with X.</p>
+        </aside>
+      </section>
+
+      <footer class="page-footer">
+        <span>Think ahead. Make your move.</span>
+        <span class="footer-status"><span class="footer-dot"></span> System online</span>
+      </footer>
+    </main>
+  </body>
+</html>
