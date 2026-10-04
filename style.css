@@ -1647,7 +1647,7 @@ footer {
 
     .hero-art {
         top: 12%;
-        right: -28%;
+        right: 0;
         width: 72vw;
         opacity: 0.35;
     }
